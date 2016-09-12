@@ -4,7 +4,7 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
 
-namespace VirtualMethodsDispatching
+namespace GenericMethodsDispatching
 {
     [OrderProvider(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
     [Config(typeof(Config))]
