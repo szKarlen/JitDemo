@@ -2,12 +2,13 @@
 using BenchmarkDotNet.Configs;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Columns;
+using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
 
 namespace VirtualMethodsDispatching
 {
-    [OrderProvider(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
+    [OrderProvider(SummaryOrderPolicy.FastestToSlowest)]
     [Config(typeof(Config))]
     public class VirtualMethodBenchmark
     {
@@ -15,9 +16,7 @@ namespace VirtualMethodsDispatching
         {
             public Config()
             {
-                //Add(Job.LegacyJitX86.With(Mode.SingleRun).WithLaunchCount(4).WithWarmupCount(4).WithTargetCount(4));
-                //Add(Job.LegacyJitX64.With(Mode.SingleRun).WithLaunchCount(4).WithWarmupCount(4).WithTargetCount(4));
-                Add(Job.RyuJitX64.With(Mode.SingleRun).WithLaunchCount(4).WithWarmupCount(4).WithTargetCount(4));
+                Add(Job.RyuJitX64.With(Jit.RyuJit));
             }
         }
 

@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
 
@@ -14,9 +15,7 @@ namespace GenericMethodsDispatching
         {
             public Config()
             {
-                //Add(Job.LegacyJitX86.With(Mode.SingleRun).WithLaunchCount(4).WithWarmupCount(4).WithTargetCount(4));
-                //Add(Job.LegacyJitX64.With(Mode.SingleRun).WithLaunchCount(4).WithWarmupCount(4).WithTargetCount(4));
-                Add(Job.RyuJitX64.With(Mode.SingleRun).WithLaunchCount(4).WithWarmupCount(4).WithTargetCount(4));
+                Add(Job.RyuJitX64.With(Jit.RyuJit));
             }
         }
 
