@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceMethodsDispatching
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericMethodsDispatching", "GenericMethodsDispatching\GenericMethodsDispatching.csproj", "{BF354874-77CD-436B-A9F6-DE3BEF5B247C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumerableBenchmark", "EnumerableBenchmark\EnumerableBenchmark.csproj", "{5E201755-2583-49DB-82C9-5DC720C0D106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteBarrierBenchmark", "WriteBarrierBenchmark\WriteBarrierBenchmark.csproj", "{7494D70D-9E85-42FC-BFC0-FE5221A42D95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{BF354874-77CD-436B-A9F6-DE3BEF5B247C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF354874-77CD-436B-A9F6-DE3BEF5B247C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF354874-77CD-436B-A9F6-DE3BEF5B247C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E201755-2583-49DB-82C9-5DC720C0D106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E201755-2583-49DB-82C9-5DC720C0D106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E201755-2583-49DB-82C9-5DC720C0D106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E201755-2583-49DB-82C9-5DC720C0D106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7494D70D-9E85-42FC-BFC0-FE5221A42D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7494D70D-9E85-42FC-BFC0-FE5221A42D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7494D70D-9E85-42FC-BFC0-FE5221A42D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7494D70D-9E85-42FC-BFC0-FE5221A42D95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
