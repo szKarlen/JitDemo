@@ -16,12 +16,19 @@ namespace VirtualMethodsDispatching
         {
             public Config()
             {
-                Add(Job.RyuJitX64.With(Jit.RyuJit));
+                Add(Job.RyuJitX64);
+                Add(BaselineScaledColumn.ScaledStdDev);
             }
         }
 
+        [Setup]
+        public void Setup()
+        {
+            RuntimeHelpers.PrepareMethod(typeof(Plain).GetMethod("Print").MethodHandle);
+        }
+
         // just for Turbo Boost
-        [Benchmark(Baseline = true, Description = "non-virtual, pre-boot")]
+        [Benchmark(Baseline = true, Description = "non-virtual")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void CallBoot()
         {
@@ -32,23 +39,12 @@ namespace VirtualMethodsDispatching
             }
         }
 
-        [Params(1000000000)]
+        [Params(10000000)]
         public int Count { get; set; }
 
         [Benchmark(Description = "virtual (base-derived)")]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void CallDerived()
-        {
-            Base derived = new Derived();
-            for (int i = 0; i < Count; i++)
-            {
-                derived.Print();
-            }
-        }
-
-        [Benchmark(Description = "non-virtual")]
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public void CallNonVirtual()
         {
             Base derived = new Derived();
             for (int i = 0; i < Count; i++)
@@ -72,12 +68,7 @@ namespace VirtualMethodsDispatching
         }
     }
 
-    class PlainBase
-    {
-         
-    }
-
-    class Plain : PlainBase
+    class Plain
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void Print()

@@ -4,10 +4,11 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
+using BenchmarkDotNet.Columns;
 
 namespace GenericMethodsDispatching
 {
-    [OrderProvider(SummaryOrderPolicy.FastestToSlowest, MethodOrderPolicy.Declared)]
+    [OrderProvider(SummaryOrderPolicy.FastestToSlowest)]
     [Config(typeof(Config))]
     public class GenericsMethodBenchmark
     {
@@ -15,23 +16,22 @@ namespace GenericMethodsDispatching
         {
             public Config()
             {
-                Add(Job.RyuJitX64.With(Jit.RyuJit));
+                Add(Job.RyuJitX64);
+                Add(BaselineScaledColumn.ScaledStdDev);
             }
         }
 
-        // just for Turbo Boost
-        [Benchmark(Baseline = true, Description = "non-virtual, pre-boot")]
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public void CallBoot()
+        [Setup]
+        public void Setup()
         {
-            var plain = new Plain();
-            for (int i = 0; i < this.Count; i++)
-            {
-                plain.Print();
-            }
+            RuntimeHelpers.PrepareMethod(typeof(Plain).GetMethod("Print").MethodHandle);
+            RuntimeHelpers.PrepareMethod(typeof(DataPrinter<>).MakeGenericType(typeof(object)).GetMethod("Print").MethodHandle, new[] { typeof(object).TypeHandle });
+            RuntimeHelpers.PrepareMethod(typeof(DataPrinter).GetMethod("Print").MethodHandle, new[] { typeof(object).TypeHandle });
+            RuntimeHelpers.PrepareMethod(typeof(DataPrinterUtils).GetMethod("Print").MethodHandle, new[] { typeof(object).TypeHandle });
+            RuntimeHelpers.PrepareMethod(typeof(GenericDerived).GetMethod("Print").MethodHandle, new[] { typeof(object).TypeHandle });
         }
 
-        [Benchmark(Description = "non-virtual")]
+        [Benchmark(Description = "non-virtual", Baseline = true)]
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void CallNonVirtual()
         {
@@ -53,7 +53,7 @@ namespace GenericMethodsDispatching
             }
         }
 
-        [Params(1000000000)]
+        [Params(10000000)]
         public int Count { get; set; }
 
         [Benchmark(Description = "generic method")]
